@@ -6,7 +6,6 @@ using System.Net;
 using System.Threading.Tasks;
 using AlbumFinder;
 using FluentAssertions;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
@@ -36,6 +35,12 @@ namespace AlbumFinderTests
         {
             var uri = _underTest.GetUri("blah");
             uri.Should().BeNull();
+        }
+        [TestMethod]
+        public void SpaceShouldBeTrimmed()
+        {
+            var uri = _underTest.GetUri(" 2 ");
+            uri.AbsoluteUri.Should().BeEquivalentTo("https://jsonplaceholder.typicode.com/photos?albumId=2");
         }
         [TestMethod]
         public void DeserializationWorking()
@@ -86,6 +91,7 @@ namespace AlbumFinderTests
             var result = _underTest.GetAlbum("1").ContinueWith(x =>
             {
                 Assert.AreEqual(x.Result.Response, ResponseCode.NotFound);
+                Assert.IsNull(x.Result.Albums);
             });
         }
 
@@ -100,6 +106,7 @@ namespace AlbumFinderTests
             var result = _underTest.GetAlbum("asdfadsf").ContinueWith(x =>
             {
                 Assert.AreEqual(x.Result.Response, ResponseCode.InvalidInput);
+                Assert.IsNull(x.Result.Albums);
             });
         }
 
@@ -118,6 +125,7 @@ namespace AlbumFinderTests
                 res.Albums.First(a => a.Id == 1).Title.Should().Be("Test1");
                 res.Albums.First(a => a.Id == 2).Title.Should().Be("Test2");
                 res.Albums.First(a => a.Id == 3).Title.Should().Be("Test3");
+
             });
         }
     }

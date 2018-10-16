@@ -66,9 +66,10 @@ namespace AlbumFinder
 
         public Uri GetUri(string id)
         {
-            if (long.TryParse(id, out var converted))
+            var trimmed = id.Trim();
+            if (long.TryParse(trimmed, out var converted))
             {
-                return id != string.Empty ? new Uri(BaseUrl + $"?albumId={id}") : new Uri(BaseUrl);
+                return trimmed != string.Empty ? new Uri(BaseUrl + $"?albumId={trimmed}") : new Uri(BaseUrl);
             }
             else
             {
