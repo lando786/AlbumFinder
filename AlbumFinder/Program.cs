@@ -11,9 +11,10 @@ namespace AlbumFinder
     {
         static void Main(string[] args)
         {
+            var client = new AlbumFinderClient();
             Console.Write("Enter Album Id (Blank will be all):");
             var id = Console.ReadLine();
-            var res = AlbumFinderClient.GetAlbum(id);
+            var res = client.GetAlbum(id);
             PrintResults(res);
             
             Console.Write("Done");
@@ -28,6 +29,10 @@ namespace AlbumFinder
                 {
                     Console.WriteLine($"[{ album.id}] {album.title} ");
                 }
+            }
+            else
+            {
+                Console.WriteLine("Album Id not found");
             }
         }
     }
