@@ -16,8 +16,7 @@ namespace AlbumFinder
             var id = Console.ReadLine();
             var res = client.GetAlbum(id);
             PrintResults(res);
-            
-            Console.Write("Done");
+            Console.Write("*******");
             Console.ReadLine();
         }
 
@@ -27,7 +26,7 @@ namespace AlbumFinder
             {
                 foreach (var album in res.Result)
                 {
-                    Console.WriteLine($"[{ album.id}] {album.title} ");
+                    Console.WriteLine($"[{ album.Id}] {album.Title} ");
                 }
             }
             else

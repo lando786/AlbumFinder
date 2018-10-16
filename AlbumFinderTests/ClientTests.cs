@@ -36,34 +36,34 @@ namespace AlbumFinderTests
             var deserializedList = _underTest.Deserialize(GetTestData());
             deserializedList.Count.Should().Be(3);
 
-            var first = deserializedList.First(x => x.id == 1);
-            first.title.Should().BeEquivalentTo("Test1");
+            var first = deserializedList.First(x => x.Id == 1);
+            first.Title.Should().BeEquivalentTo("Test1");
 
-            var second = deserializedList.First(x => x.id == 2);
-            second.title.Should().BeEquivalentTo("Test2");
+            var second = deserializedList.First(x => x.Id == 2);
+            second.Title.Should().BeEquivalentTo("Test2");
 
-            var third = deserializedList.First(x => x.id == 3);
-            third.title.Should().BeEquivalentTo("Test3");
+            var third = deserializedList.First(x => x.Id == 3);
+            third.Title.Should().BeEquivalentTo("Test3");
         }
         private string GetTestData()
         {
             var list = new List<Album>() {
                 new Album()
             {
-                albumId =1,
-                id =1,
-                title = "Test1"
+                AlbumId =1,
+                Id =1,
+                Title = "Test1"
             },
                 new Album()
             {
-                albumId =1,
-                id =2,
-                title = "Test2"
+                AlbumId =1,
+                Id =2,
+                Title = "Test2"
             },new Album()
             {
-                albumId =1,
-                id =3,
-                title = "Test3"
+                AlbumId =1,
+                Id =3,
+                Title = "Test3"
             }
             };
             

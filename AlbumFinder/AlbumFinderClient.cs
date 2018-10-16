@@ -11,7 +11,7 @@ namespace AlbumFinder
     public class AlbumFinderClient
     {
         static HttpClient client = new HttpClient();
-        const string BaseUrl = "https://jsonplaceholder.typicode.com/photos";
+        private const string BaseUrl = "https://jsonplaceholder.typicode.com/photos";
 
         public async Task<IEnumerable<Album>> GetAlbum(string id)
         {
