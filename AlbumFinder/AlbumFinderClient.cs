@@ -13,21 +13,43 @@ namespace AlbumFinder
         static HttpClient client = new HttpClient();
         private const string BaseUrl = "https://jsonplaceholder.typicode.com/photos";
 
-        public async Task<IEnumerable<Album>> GetAlbum(string id)
+        public async Task<AlbumResponse> GetAlbum(string id)
         {
             List<Album> result = null;
-            var uri = GetUri(id);
-            HttpResponseMessage response = await client.GetAsync(uri);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                
-                result = Deserialize(response.Content.ReadAsStringAsync().Result);
+                var uri = GetUri(id);
+                HttpResponseMessage response = await client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+
+                    result = Deserialize(response.Content.ReadAsStringAsync().Result);
+                    return result.Any()? new AlbumResponse()
+                    {
+                        Albums = result,
+                        Response = ResponseCode.Ok
+                    } : new AlbumResponse()
+                         {
+                             Response = ResponseCode.NotFound
+                         };
+                    ;
+                }
+                else
+                {
+                    return new AlbumResponse()
+                    {
+                        Response = ResponseCode.Unknown
+                    };
+                }
             }
-            else
+            catch (ArgumentException e)
             {
-                result = new List<Album>();
+
+                return new AlbumResponse()
+                {
+                    Response = ResponseCode.InvalidInput
+                };
             }
-            return result;
         }
 
         public List<Album> Deserialize(string result)
@@ -46,6 +68,6 @@ namespace AlbumFinder
                 throw new ArgumentException("Invalid input for Id, use numbers");
             }
         }
-       
+        
     }
 }
