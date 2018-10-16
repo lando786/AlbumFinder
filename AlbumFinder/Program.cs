@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Unity;
 
 namespace AlbumFinder
 {
@@ -12,7 +12,30 @@ namespace AlbumFinder
     {
         static void Main(string[] args)
         {
-            var client = new AlbumFinderClient();
+            var unity = CreateUnityContainerAndRegisterComponents();
+            var app = unity.Resolve<App>();
+            app.Run();
+        }
+
+        private static UnityContainer CreateUnityContainerAndRegisterComponents()
+        {
+            var container = new UnityContainer();
+            container.RegisterType<IAlbumFinderClient, AlbumFinderClient>();
+            container.RegisterType<IWebClient, WebClient>();
+            return container;
+        }
+
+       
+    }
+    public class App
+    {
+        private IAlbumFinderClient _client;
+        public App(IAlbumFinderClient client)
+        {
+            _client = client;
+        }
+        public void Run()
+        {
 
             while (true)
             {
@@ -22,16 +45,14 @@ namespace AlbumFinder
                 {
                     break;
                 }
-                var res = client.GetAlbum(id);
+                var res = _client.GetAlbum(id);
                 PrintResults(res);
                 Console.Write("*******");
             }
-            
         }
-
         private static void PrintResults(Task<AlbumResponse> res)
         {
-           
+
             if (res.Result.Response == ResponseCode.Ok)
             {
                 foreach (var album in res.Result.Albums)
@@ -43,7 +64,7 @@ namespace AlbumFinder
             {
                 Console.WriteLine(res.Result.Response.GetDescription());
             }
-           
+
         }
     }
 }

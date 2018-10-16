@@ -4,6 +4,7 @@ using System.Linq;
 using AlbumFinder;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using Newtonsoft.Json;
 
 namespace AlbumFinderTests
@@ -12,10 +13,12 @@ namespace AlbumFinderTests
     public class ClientTests
     {
         private AlbumFinderClient _underTest;
+        Mock<IWebClient> client;
         [TestInitialize]
         public void Init()
         {
-            _underTest = new AlbumFinderClient();
+            client = new Mock<IWebClient>();
+            _underTest = new AlbumFinderClient(client.Object);
         }
         [TestMethod]
         public void GetUriWorksWithLongId()

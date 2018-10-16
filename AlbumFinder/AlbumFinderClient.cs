@@ -8,18 +8,25 @@ using System.Threading.Tasks;
 
 namespace AlbumFinder
 {
-    public class AlbumFinderClient
+    public interface IAlbumFinderClient
     {
-        static HttpClient client = new HttpClient();
+        Task<AlbumResponse> GetAlbum(string id);
+    }
+    public class AlbumFinderClient : IAlbumFinderClient
+    {
+        private IWebClient _client;
         private const string BaseUrl = "https://jsonplaceholder.typicode.com/photos";
-
+        public AlbumFinderClient(IWebClient webClient)
+        {
+            _client = webClient;
+        }
         public async Task<AlbumResponse> GetAlbum(string id)
         {
             List<Album> result = null;
             try
             {
                 var uri = GetUri(id);
-                HttpResponseMessage response = await client.GetAsync(uri);
+                HttpResponseMessage response = await _client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
 
