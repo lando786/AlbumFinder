@@ -16,7 +16,7 @@ using AlbumFinder.Constants;
 namespace AlbumFinderTests
 {
     [TestClass]
-    public class ClientTests
+    public class AlbumFinderClientTests
     {
         private AlbumFinderClient _underTest;
         Mock<IWebClient> client;
@@ -67,31 +67,6 @@ namespace AlbumFinderTests
             var third = deserializedList.First(x => x.Id == 3);
             third.Title.Should().BeEquivalentTo("Test3");
         }
-        private string GetDeserializationTestData()
-        {
-            var list = new List<Album>() {
-                new Album()
-            {
-                AlbumId =1,
-                Id =1,
-                Title = "Test1"
-            },
-                new Album()
-            {
-                AlbumId =1,
-                Id =2,
-                Title = "Test2"
-            },new Album()
-            {
-                AlbumId =1,
-                Id =3,
-                Title = "Test3"
-            }
-            };
-            
-            return JsonConvert.SerializeObject(list);
-
-        }
 
         [TestMethod]
         public void AlbumNotFoundTest()
@@ -137,6 +112,30 @@ namespace AlbumFinderTests
                 res.Albums.First(a => a.Id == 3).Title.Should().Be("Test3");
 
             });
+        }
+
+        private string GetDeserializationTestData()
+        {
+            var list = new List<Album>() {
+                new Album()
+            {
+                AlbumId =1,
+                Id =1,
+                Title = "Test1"
+            },
+                new Album()
+            {
+                AlbumId =1,
+                Id =2,
+                Title = "Test2"
+            },new Album()
+            {
+                AlbumId =1,
+                Id =3,
+                Title = "Test3"
+            }
+            };
+            return JsonConvert.SerializeObject(list);
         }
     }
 }

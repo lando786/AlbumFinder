@@ -20,7 +20,7 @@ namespace AlbumFinder.Classes
             while (_shouldRun)
             {
                 Console.Write("Enter Album Id (Blank will be all) or 'exit' to quit:");
-                var id = Console.ReadLine();
+                var id = Console.ReadLine().ToLower();
                 if (id == "exit")
                 {
                     _shouldRun = false;
