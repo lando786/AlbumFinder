@@ -9,6 +9,7 @@ namespace AlbumFinder.Classes
     public class App
     {
         private IAlbumFinderService _client;
+        private bool _shouldRun = true;
         public App(IAlbumFinderService client)
         {
             _client = client;
@@ -16,17 +17,18 @@ namespace AlbumFinder.Classes
         public void Run()
         {
 
-            while (true)
+            while (_shouldRun)
             {
                 Console.Write("Enter Album Id (Blank will be all) or 'exit' to quit:");
                 var id = Console.ReadLine();
                 if (id == "exit")
                 {
-                    break;
+                    _shouldRun = false;
+                    return;
                 }
                 var res = _client.GetAlbum(id);
                 PrintResults(res);
-                Console.Write("*******");
+                Console.WriteLine("*******");
             }
         }
         private static void PrintResults(Task<AlbumResponse> res)

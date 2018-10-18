@@ -72,11 +72,11 @@ namespace AlbumFinder.Services
             long converted;
             if (long.TryParse(trimmed, out converted) || trimmed == string.Empty)
             {
-                return trimmed != string.Empty ? new Uri(AppConstants.BaseUrl + $"?albumId={trimmed}") : new Uri(AppConstants.BaseUrl);
+                return trimmed != string.Empty ? new Uri(AppConstants.PhotosEndpoint + $"?albumId={trimmed}") : new Uri(AppConstants.PhotosEndpoint);
             }
             else
             {
-                throw new ArgumentException("Invalid input for Id, use numbers");
+                throw new ArgumentException(ErrorMessages.InvalidInputErrorMessage);
             }
         }
         

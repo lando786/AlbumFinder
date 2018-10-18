@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using AlbumFinder.Services;
 using AlbumFinder.Models;
 using AlbumFinder.Enums;
+using AlbumFinder.Constants;
 
 namespace AlbumFinderTests
 {
@@ -31,12 +32,19 @@ namespace AlbumFinderTests
             var uri = _underTest.GetUri("21");
             uri.AbsoluteUri.Should().BeEquivalentTo("https://jsonplaceholder.typicode.com/photos?albumId=21");
         }
+
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void NonNumbersShouldFail()
         {
-            var uri = _underTest.GetUri("blah");
-            uri.Should().BeNull();
+            try
+            {
+                var uri = _underTest.GetUri("blah");
+
+            }
+            catch (ArgumentException e)
+            {
+                e.Message.Should().Be(ErrorMessages.InvalidInputErrorMessage);
+            }
         }
         [TestMethod]
         public void SpaceShouldBeTrimmed()
@@ -92,8 +100,8 @@ namespace AlbumFinderTests
                 .Returns(Task.FromResult(new HttpResponseMessage() { StatusCode = HttpStatusCode.OK, Content = null}));
             var result = _underTest.GetAlbum("1").ContinueWith(x =>
             {
-                Assert.AreEqual(x.Result.Response, ResponseCode.NotFound);
-                Assert.IsNull(x.Result.Albums);
+                x.Result.Response.Should().Be(ResponseCode.NotFound);
+                x.Result.Albums.Should().BeNull();
             });
         }
 
@@ -107,8 +115,8 @@ namespace AlbumFinderTests
                }));
             var result = _underTest.GetAlbum("asdfadsf").ContinueWith(x =>
             {
-                Assert.AreEqual(x.Result.Response, ResponseCode.InvalidInput);
-                Assert.IsNull(x.Result.Albums);
+                x.Result.Response.Should().Be(ResponseCode.InvalidInput);
+                x.Result.Albums.Should().BeNull();
             });
         }
 
@@ -123,7 +131,7 @@ namespace AlbumFinderTests
             var result = _underTest.GetAlbum("asdfadsf").ContinueWith(x =>
             {
                 var res = x.Result;
-                Assert.AreEqual(res.Response, ResponseCode.Ok);
+                res.Response.Should().Be(ResponseCode.Ok);
                 res.Albums.First(a => a.Id == 1).Title.Should().Be("Test1");
                 res.Albums.First(a => a.Id == 2).Title.Should().Be("Test2");
                 res.Albums.First(a => a.Id == 3).Title.Should().Be("Test3");
