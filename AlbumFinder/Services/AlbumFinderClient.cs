@@ -1,4 +1,5 @@
 ﻿using AlbumFinder.Constants;
+using AlbumFinder.Enums;
 using AlbumFinder.Models;
 using Newtonsoft.Json;
 using System;
