@@ -20,7 +20,5 @@ namespace AlbumFinder
             container.RegisterType<IWebClient, WebClient>();
             return container;
         }
-
-       
     }
 }

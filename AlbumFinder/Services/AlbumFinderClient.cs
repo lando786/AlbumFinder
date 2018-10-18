@@ -24,7 +24,7 @@ namespace AlbumFinder.Services
         }
         public async Task<AlbumResponse> GetAlbum(string id)
         {
-            List<Album> result = null;
+            var result = new List<Album>();
             try
             {
                 var uri = GetUri(id);
@@ -79,6 +79,5 @@ namespace AlbumFinder.Services
                 throw new ArgumentException(ErrorMessages.InvalidInputErrorMessage);
             }
         }
-        
     }
 }
