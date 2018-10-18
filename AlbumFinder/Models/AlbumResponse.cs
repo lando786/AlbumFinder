@@ -1,8 +1,6 @@
-﻿using System;
+﻿using AlbumFinder.Enums;
+using AlbumFinder.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AlbumFinder
 {

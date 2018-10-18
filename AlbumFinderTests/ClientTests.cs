@@ -4,11 +4,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Net;
 using System.Threading.Tasks;
-using AlbumFinder;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
+using AlbumFinder.Services;
+using AlbumFinder.Models;
+using AlbumFinder.Enums;
 
 namespace AlbumFinderTests
 {

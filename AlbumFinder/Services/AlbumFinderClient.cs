@@ -1,21 +1,22 @@
-﻿using Newtonsoft.Json;
+﻿using AlbumFinder.Constants;
+using AlbumFinder.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace AlbumFinder
+namespace AlbumFinder.Services
 {
-    public interface IAlbumFinderClient
+    public interface IAlbumFinderService
     {
         Task<AlbumResponse> GetAlbum(string id);
     }
-    public class AlbumFinderClient : IAlbumFinderClient
+    public class AlbumFinderClient : IAlbumFinderService
     {
         private IWebClient _client;
-        private const string BaseUrl = "https://jsonplaceholder.typicode.com/photos";
+        
         public AlbumFinderClient(IWebClient webClient)
         {
             _client = webClient;
@@ -70,7 +71,7 @@ namespace AlbumFinder
             long converted;
             if (long.TryParse(trimmed, out converted) || trimmed == string.Empty)
             {
-                return trimmed != string.Empty ? new Uri(BaseUrl + $"?albumId={trimmed}") : new Uri(BaseUrl);
+                return trimmed != string.Empty ? new Uri(AppConstants.BaseUrl + $"?albumId={trimmed}") : new Uri(AppConstants.BaseUrl);
             }
             else
             {

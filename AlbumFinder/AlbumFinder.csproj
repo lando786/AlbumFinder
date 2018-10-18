@@ -73,17 +73,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Album.cs" />
-    <Compile Include="AlbumFinderClient.cs" />
-    <Compile Include="AlbumResponse.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Models\Album.cs" />
+    <Compile Include="Services\AlbumFinderClient.cs" />
+    <Compile Include="Models\AlbumResponse.cs" />
+    <Compile Include="Classes\App.cs" />
+    <Compile Include="Constants\Constants.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResponseCode.cs" />
-    <Compile Include="WebClient.cs" />
+    <Compile Include="Enums\ResponseCode.cs" />
+    <Compile Include="Services\WebClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

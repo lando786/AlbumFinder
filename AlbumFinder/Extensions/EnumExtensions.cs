@@ -1,29 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AlbumFinder
+namespace AlbumFinder.Extensions
 {
-    public enum ResponseCode
-    {
-        [Description("Ok")]
-        Ok,
-        [Description("Invalid input for Id, use numbers")]
-        InvalidInput,
-        [Description("Album id not found")]
-        NotFound,
-        [Description("Unknown error encountered")]
-        Unknown
-    }
-   
-}
-namespace Extensions
-{
-    public static class EnumExtensionMethods
+    public static class EnumExtensions
     {
         public static string GetDescription(this Enum GenericEnum)
         {
